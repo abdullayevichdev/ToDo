@@ -21,9 +21,8 @@ const CATEGORIES = [
 export default function Index() {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [input, setInput] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState<Todo["category"]>(
-    "work"
-  );
+  const [selectedCategory, setSelectedCategory] =
+    useState<Todo["category"]>("work");
   const [editingId, setEditingId] = useState<string | null>(null);
   const [editText, setEditText] = useState("");
   const [filter, setFilter] = useState<"all" | "active" | "completed">("all");
@@ -62,14 +61,14 @@ export default function Index() {
   const toggleTodo = (id: string) => {
     setTodos(
       todos.map((todo) =>
-        todo.id === id ? { ...todo, completed: !todo.completed } : todo
-      )
+        todo.id === id ? { ...todo, completed: !todo.completed } : todo,
+      ),
     );
   };
 
   const updateTodo = (id: string, newText: string) => {
     setTodos(
-      todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo))
+      todos.map((todo) => (todo.id === id ? { ...todo, text: newText } : todo)),
     );
     setEditingId(null);
   };
@@ -142,16 +141,28 @@ export default function Index() {
           className="grid grid-cols-3 gap-4 mb-8"
         >
           {[
-            { label: "Total", value: stats.total, color: "from-blue-600 to-cyan-600" },
-            { label: "Active", value: stats.active, color: "from-amber-600 to-orange-600" },
-            { label: "Completed", value: stats.completed, color: "from-emerald-600 to-green-600" },
+            {
+              label: "Total",
+              value: stats.total,
+              color: "from-blue-600 to-cyan-600",
+            },
+            {
+              label: "Active",
+              value: stats.active,
+              color: "from-amber-600 to-orange-600",
+            },
+            {
+              label: "Completed",
+              value: stats.completed,
+              color: "from-emerald-600 to-green-600",
+            },
           ].map((stat, idx) => (
             <motion.div
               key={stat.label}
               whileHover={{ y: -5 }}
               className={cn(
                 "bg-gradient-to-br p-4 rounded-xl border border-slate-700",
-                stat.color
+                stat.color,
               )}
             >
               <p className="text-white/80 text-sm font-medium">{stat.label}</p>
@@ -191,8 +202,9 @@ export default function Index() {
                   className={cn(
                     "px-4 py-2 rounded-lg font-medium text-sm transition-all",
                     selectedCategory === cat.id
-                      ? cat.color + " ring-2 ring-offset-2 ring-offset-slate-800 ring-slate-400"
-                      : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+                      ? cat.color +
+                          " ring-2 ring-offset-2 ring-offset-slate-800 ring-slate-400"
+                      : "bg-slate-700 text-slate-300 hover:bg-slate-600",
                   )}
                 >
                   {cat.label}
@@ -228,7 +240,7 @@ export default function Index() {
                 "px-4 py-2 rounded-lg font-medium text-sm transition-all",
                 filter === f
                   ? "bg-gradient-to-r from-cyan-500 to-blue-500 text-white shadow-lg"
-                  : "bg-slate-700 text-slate-300 hover:bg-slate-600"
+                  : "bg-slate-700 text-slate-300 hover:bg-slate-600",
               )}
             >
               {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -237,10 +249,7 @@ export default function Index() {
         </motion.div>
 
         {/* Todo List */}
-        <motion.div
-          layout
-          className="space-y-3"
-        >
+        <motion.div layout className="space-y-3">
           <AnimatePresence mode="popLayout">
             {filteredTodos.length > 0 ? (
               filteredTodos.map((todo, index) => (
@@ -255,7 +264,7 @@ export default function Index() {
                     "group bg-slate-800/50 backdrop-blur-md border rounded-xl p-4 transition-all hover:bg-slate-800 shadow-lg",
                     todo.completed
                       ? "border-slate-600 opacity-75"
-                      : "border-slate-700 hover:border-cyan-500"
+                      : "border-slate-700 hover:border-cyan-500",
                   )}
                 >
                   <div className="flex items-start gap-3">
@@ -314,7 +323,7 @@ export default function Index() {
                           <p
                             className={cn(
                               "text-white break-words",
-                              todo.completed && "line-through text-slate-500"
+                              todo.completed && "line-through text-slate-500",
                             )}
                           >
                             {todo.text}
@@ -323,11 +332,13 @@ export default function Index() {
                             <span
                               className={cn(
                                 "text-xs font-medium px-2 py-1 rounded-md",
-                                getCategoryColor(todo.category)
+                                getCategoryColor(todo.category),
                               )}
                             >
-                              {CATEGORIES.find((c) => c.id === todo.category)
-                                ?.label}
+                              {
+                                CATEGORIES.find((c) => c.id === todo.category)
+                                  ?.label
+                              }
                             </span>
                             <span className="text-xs text-slate-500">
                               {new Date(todo.createdAt).toLocaleDateString()}
@@ -378,7 +389,8 @@ export default function Index() {
                   🎯
                 </motion.div>
                 <p className="text-slate-400 font-medium">
-                  {filter === "all" && "No tasks yet. Create one to get started!"}
+                  {filter === "all" &&
+                    "No tasks yet. Create one to get started!"}
                   {filter === "active" && "No active tasks. Great job!"}
                   {filter === "completed" && "No completed tasks yet."}
                 </p>
@@ -394,9 +406,7 @@ export default function Index() {
           transition={{ duration: 0.5, delay: 0.5 }}
           className="mt-12 pt-8 border-t border-slate-700 text-center text-slate-500 text-sm"
         >
-          <p>
-            Built with ❤️ by Avazxanov Abdulhay | Professional Task Manager
-          </p>
+          <p>Built with ❤️ by Avazxanov Abdulhay | Professional Task Manager</p>
         </motion.div>
       </main>
     </div>
